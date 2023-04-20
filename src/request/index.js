@@ -15,3 +15,21 @@ export const login =  (params) => axiosUser({
     'content-type':'application/json'
   }
 })
+
+export const getUserInfo =  (params) => axiosUser({
+  url:'/adminusers',
+  query:params,
+  method:'get',
+  headers:{
+    'content-type':'application/json'
+  }
+})
+
+export const getGoods =  (params) => axiosUser({
+  url:'/admingoods',
+  query:params,
+  method:'get',
+  headers:{
+    'content-type':'application/json'
+  }
+})

@@ -3,7 +3,7 @@
  * @Author: likeorange
  * @Date: 2023-04-12 19:35:50
  * @LastEditors: likeorange
- * @LastEditTime: 2023-04-12 23:31:44
+ * @LastEditTime: 2023-04-13 16:53:25
 -->
 <template lang="">
     <div class="Backstage">
@@ -15,8 +15,6 @@
         class="el-menu-vertical-demo"
         default-active="2"
         text-color="#fff"
-        @open="handleOpen"
-        @close="handleClose"
         :router="true"
       >
         <el-menu-item index="0">
@@ -36,20 +34,20 @@
         </el-menu-item>
         <el-menu-item index="/backstage/editAdmin">
           <el-icon><setting /></el-icon>
-          <span>修改资料</span>
+          <span>数据分析</span>
         </el-menu-item>
       </el-menu>
+      
       </el-aside>
       <el-container>
         <el-header>
           <el-menu
-    :default-active="activeIndex"
+    default-active="0"
     class="el-menu-demo"
     mode="horizontal"
     :ellipsis="false"
-    @select="handleSelect"
   >
-    <el-menu-item index="">后台管理系统</el-menu-item>
+    <el-menu-item index="0">后台管理系统</el-menu-item>
     <div class="flex-grow" />
     <el-sub-menu index="2">
       <template #title>当前用户</template>
@@ -58,16 +56,15 @@
   </el-menu>
         </el-header>
         <el-main>
-          <router-view></router-view>
+          <router-view />
         </el-main>
       </el-container>
     </el-container>
   </div>
 </template>
 <script>
-import { RouterView } from 'vue-router'
 export default {
-
+  name: 'BackStage'
 }
 </script>
 <style scoped>
@@ -90,7 +87,8 @@ export default {
 .flex-grow {
   flex-grow: 1;
 }
-.el-header{
+
+.el-header {
   padding: 0;
 }
 </style>
