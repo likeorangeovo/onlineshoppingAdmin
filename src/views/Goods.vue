@@ -3,7 +3,7 @@
  * @Author: likeorange
  * @Date: 2023-04-12 19:37:20
  * @LastEditors: likeorange
- * @LastEditTime: 2023-04-20 22:04:00
+ * @LastEditTime: 2023-04-20 23:04:40
 -->
 <template lang="">
   <div>
@@ -44,9 +44,14 @@ export default {
       const res = await getGoods()
       tableData.value = res.data.data
     })
-    function editGood(item){
-      console.log(item)
-      router.push(`goods/:${item.id}`)
+    function editGood(item) {
+      const params = JSON.parse(JSON.stringify(item))
+      router.push({
+        name: 'EditGoods',
+        state: {
+          params
+        }
+      })
     }
     return {
       editGood,

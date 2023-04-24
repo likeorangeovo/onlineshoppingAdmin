@@ -1,3 +1,10 @@
+/*
+ * @Descripttion: 
+ * @Author: likeorange
+ * @Date: 2023-04-11 16:44:16
+ * @LastEditors: likeorange
+ * @LastEditTime: 2023-04-20 22:54:17
+ */
 import { createRouter, createWebHistory } from 'vue-router'
 
 const router = createRouter({
@@ -38,7 +45,7 @@ const router = createRouter({
             requireLogin:true,
           },
         },{
-          path: 'goods/:id',
+          path: 'goods/edit',
           name: 'EditGoods',
           component: () => import('../views/EditGoods.vue'),
           meta: {
