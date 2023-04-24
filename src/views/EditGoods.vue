@@ -3,21 +3,22 @@
  * @Author: likeorange
  * @Date: 2023-04-12 19:37:31
  * @LastEditors: likeorange
- * @LastEditTime: 2023-04-24 17:14:47
+ * @LastEditTime: 2023-04-24 23:30:14
 -->
 <template lang="">
   <div class="personal-info">
-    <el-form :model="statemsg" :label-width="formLabelWidth" ref="form">
+    <el-form :model="statemsg" >
       <el-form-item label="商品图片">
         <el-avatar shape="square" :src="statemsg.primary_pic_url" :size="100"></el-avatar>
-        <el-upload class="upload-demo"  action="/api/upload/avatar" :limit="1" :on-exceed="handleExceed" :on-success="handleSuccess" :file-list="fileList" style='margin:0 30px'>
+        <el-upload class="upload-demo"  action="/api/upload/avatar" :limit="1" :on-success="handlePrimary" style='margin:0 30px'>
         <el-button size="small" type="primary">上传主图</el-button>
         </el-upload>
 
         <el-avatar shape="square" :src="statemsg.list_pic_url" :size="100"></el-avatar>
-        <el-upload class="upload-demo"  action="/api/upload/avatar" :limit="1" :on-exceed="handleExceed" :on-success="handleSuccess" :file-list="fileList" style='margin:0 30px'>
+        <el-upload class="upload-demo"  action="/api/upload/avatar" :limit="1" :on-success="handleList" style='margin:0 30px'>
         <el-button size="small" type="primary">上传列表图</el-button>
         </el-upload>
+
       </el-form-item>
       <el-form-item label="名称" prop="name">
         <el-input v-model="statemsg.name"></el-input>
@@ -46,7 +47,6 @@
         <el-input v-model="statemsg.sell_volume"></el-input>
       </el-form-item>
 
-
       <el-form-item>
         <el-button type="primary" @click="submitForm">保存</el-button>
       </el-form-item>
@@ -56,16 +56,22 @@
 <script>
 import { useRoute } from 'vue-router';
 import { ref, onBeforeMount } from "vue";
-import { downloadAvatar,category } from '../request/index.js'
+import { downloadAvatar, category } from '../request/index.js'
 export default {
   setup() {
     const route = useRoute()
-    let statemsg = ref('')
-    let filelist = ref([])
+    let statemsg = ref({})
     let mainCatrgory = ref([])
-    async function handleSuccess(response) {
+    async function handlePrimary(response) {
+      console.log(response)
+      statemsg.value.primary_pic_url = 'http://127.0.0.1:7001' + '/download/avatar/' + response.data
+    }
+    async function handleList(response) {
       console.log(response)
       statemsg.value.list_pic_url = 'http://127.0.0.1:7001' + '/download/avatar/' + response.data
+    }
+    function submitForm() {
+
     }
     onBeforeMount(async () => {
       const categoryRes = await category()
@@ -74,9 +80,10 @@ export default {
     })
     return {
       statemsg,
-      filelist,
-      handleSuccess,
-      mainCatrgory
+      handlePrimary,
+      handleList,
+      mainCatrgory,
+      submitForm
     }
   }
 }
