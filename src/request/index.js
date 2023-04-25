@@ -56,4 +56,22 @@ export const category =  () => axiosUser({
   headers:{
     'content-type':'application/json'
   }
+})
+
+export const updateGood =  (params) => axiosUser({
+  url:'/updategood',
+  method:'post',
+  data: params,
+  headers:{
+    'content-type':'application/json'
+  }
+})
+
+export const addGood =  (params) => axiosUser({
+  url:'/addgood',
+  method:'post',
+  data: params,
+  headers:{
+    'content-type':'application/json'
+  }
 }) 

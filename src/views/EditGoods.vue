@@ -3,7 +3,7 @@
  * @Author: likeorange
  * @Date: 2023-04-12 19:37:31
  * @LastEditors: likeorange
- * @LastEditTime: 2023-04-24 23:30:14
+ * @LastEditTime: 2023-04-25 19:29:06
 -->
 <template lang="">
   <div class="personal-info">
@@ -48,42 +48,48 @@
       </el-form-item>
 
       <el-form-item>
-        <el-button type="primary" @click="submitForm">保存</el-button>
+        <el-button v-if='addNew' type="primary" @click="submitAdd">保存</el-button>
+        <el-button v-else type="primary" @click="submitUpdate">修改</el-button>
       </el-form-item>
     </el-form>
   </div>
 </template>
 <script>
-import { useRoute } from 'vue-router';
 import { ref, onBeforeMount } from "vue";
-import { downloadAvatar, category } from '../request/index.js'
+import { updateGood, category, addGood } from '../request/index.js'
 export default {
   setup() {
-    const route = useRoute()
+    let addNew = ref(false)
     let statemsg = ref({})
     let mainCatrgory = ref([])
     async function handlePrimary(response) {
-      console.log(response)
       statemsg.value.primary_pic_url = 'http://127.0.0.1:7001' + '/download/avatar/' + response.data
     }
     async function handleList(response) {
-      console.log(response)
       statemsg.value.list_pic_url = 'http://127.0.0.1:7001' + '/download/avatar/' + response.data
     }
-    function submitForm() {
-
+    async function submitUpdate() {
+      await updateGood({...statemsg.value})
+    }
+    async function submitAdd() {
+      await addGood({...statemsg.value})
     }
     onBeforeMount(async () => {
       const categoryRes = await category()
       mainCatrgory.value = categoryRes.data.data
       statemsg.value = history.state.params
+      if(JSON.stringify(statemsg.value) == "{}"){
+        addNew.value = true
+      }
     })
     return {
+      addNew,
       statemsg,
+      mainCatrgory,
       handlePrimary,
       handleList,
-      mainCatrgory,
-      submitForm
+      submitUpdate,
+      submitAdd
     }
   }
 }

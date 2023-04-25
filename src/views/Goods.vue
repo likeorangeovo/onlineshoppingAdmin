@@ -3,11 +3,13 @@
  * @Author: likeorange
  * @Date: 2023-04-12 19:37:20
  * @LastEditors: likeorange
- * @LastEditTime: 2023-04-20 23:04:40
+ * @LastEditTime: 2023-04-25 19:08:27
 -->
 <template lang="">
   <div>
-    <div>editgoods</div>
+    <div>editgoods
+      <el-button type="primary" @click="editGood({})" style='float:right'>添加</el-button>
+    </div>
     <el-table :data="tableData" style="width: 100%">
     <el-table-column prop="id" label="商品ID" width="180" />
     <el-table-column prop="primary_pic_url" label="商品主图" width="180" >

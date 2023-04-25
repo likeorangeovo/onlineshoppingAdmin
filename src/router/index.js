@@ -19,7 +19,7 @@ const router = createRouter({
       component: () => import('../views/AdminLogin.vue'),
     },{
       path: '/backstage',
-      name: 'BackStage',
+      name: 'Backstage',
       redirect:"/backstage/editUser",
       component:  () => import('../views/Backstage.vue'),
       children: [
