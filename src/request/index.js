@@ -3,7 +3,7 @@
  * @Author: likeorange
  * @Date: 2023-03-29 11:48:45
  * @LastEditors: likeorange
- * @LastEditTime: 2023-04-24 16:47:21
+ * @LastEditTime: 2023-04-26 20:20:51
  */
 import axiosUser from "./request";
 
@@ -71,6 +71,23 @@ export const addGood =  (params) => axiosUser({
   url:'/addgood',
   method:'post',
   data: params,
+  headers:{
+    'content-type':'application/json'
+  }
+})
+
+export const getOrder =  () => axiosUser({
+  url:'/adminorder',
+  method:'get',
+  headers:{
+    'content-type':'application/json'
+  }
+})
+
+export const changeOrder = (query) => axiosUser({
+  url:'/changeorder',
+  params:query,
+  method:'get',
   headers:{
     'content-type':'application/json'
   }
