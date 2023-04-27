@@ -23,11 +23,11 @@
           <el-menu-item index="/backstage/orders">
             <span>订单管理</span>
           </el-menu-item>
-          <el-menu-item index="/backstage/editAdmin">
+          <el-menu-item index="/backstage/statistics">
             <!-- <el-icon>
               <setting />
             </el-icon> -->
-            <span>数据分析</span>
+            <span>数据统计</span>
           </el-menu-item>
         </el-menu>
 

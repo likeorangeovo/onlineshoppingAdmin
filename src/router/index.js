@@ -3,7 +3,7 @@
  * @Author: likeorange
  * @Date: 2023-04-11 16:44:16
  * @LastEditors: likeorange
- * @LastEditTime: 2023-04-20 22:54:17
+ * @LastEditTime: 2023-04-27 16:02:09
  */
 import { createRouter, createWebHistory } from 'vue-router'
 
@@ -62,6 +62,14 @@ const router = createRouter({
           path: 'orders/:id',
           name: 'EditOrders',
           component: () => import('../views/EditOrders.vue'),
+          meta: {
+            requireLogin:true,
+          },
+        },
+        {
+          path: 'statistics',
+          name: 'Statistics',
+          component: () => import('../views/Statistics.vue'),
           meta: {
             requireLogin:true,
           },
