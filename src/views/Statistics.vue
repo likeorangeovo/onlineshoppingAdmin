@@ -2,11 +2,12 @@
   <div>
     <e-charts class="chart" :option="option" />
     <e-charts class="chart" :option="userOption" />
+    <e-charts class="chart" :option="goodOption" />
   </div>
 </template>
 <script>
 import { ref, computed, onBeforeMount } from 'vue'
-import { getOrder, getUserInfo } from '../request/index.js'
+import { getOrder, getUserInfo, getGoods } from '../request/index.js'
 export default {
   setup() {
     let dates = ref([])
@@ -14,6 +15,8 @@ export default {
     let option = ref({})
     let userOption = ref({})
     let userInfoDatas = ref([])
+    let goodOption = ref({})
+    let goodDatas = ref([])
     onBeforeMount(async () => {
       const res = await getOrder()
       const orders = [...res.data.data]
@@ -81,7 +84,60 @@ export default {
           type: 'line',
           data: userInfoDatas.value.map(item => item.count)
         }]
-      };
+      }
+
+      //商品销量统计图
+      const goodRes = await getGoods()
+      const goods = [...goodRes.data.data]
+      goods.forEach(good => {
+        const name = good.name
+        const sell = good.sell_volume
+        goodDatas.value.push({ name, sell });
+      })
+      goodOption.value = {
+        title: {
+          text: '商品销售量统计图'
+        },
+        tooltip: {},
+        legend: {
+          data: ['商品销售量']
+        },
+        xAxis: {
+          type: 'category',
+          boundaryGap: false,
+          data: goodDatas.value.map(item => item.name)
+        },
+        yAxis: {
+          type: 'value'
+        },
+        dataZoom: [
+        {
+          show: true,
+          start: 94,
+          end: 100
+        },
+        {
+          type: 'inside',
+          start: 94,
+          end: 100
+        },
+        {
+          show: true,
+          yAxisIndex: 0,
+          filterMode: 'empty',
+          width: 30,
+          height: '80%',
+          showDataShadow: false,
+          left: '93%'
+        }
+      ],
+        series: [{
+          name: '商品销售量',
+          type: 'bar',
+          data: goodDatas.value.map(item => item.sell)
+        }]
+      }
+
     })
 
     return {
@@ -89,7 +145,9 @@ export default {
       sales,
       option,
       userOption,
-      userInfoDatas
+      userInfoDatas,
+      goodOption,
+      goodDatas
     }
   }
 }
